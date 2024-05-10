@@ -1,0 +1,48 @@
+---
+import CommonHead from '@/components/common/head.astro';
+import NavigationHeader from '@/components/navigation/header.astro';
+import Container from '@/components/common/container.astro';
+import { getCollection } from "astro:content"
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+	size?: "sm" | "md" | "lg" | "xl" | "2xl";
+}
+
+const { title, description, image, size = "lg" } = Astro.props;
+const experience = (await getCollection("experiences")).filter((post: any) => post.data.published);
+const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
+const entries = [...experience, ...projects]
+---
+
+<!doctype html>
+<html lang="en" class="bg-neutral-100 dark:bg-neutral-950">
+	<head>
+		<CommonHead title={title} description={description} image={image} />
+	</head>
+	<body class="min-h-screen h-full">
+		<NavigationHeader />
+		<Container size={size} tag="main" class="pt-16 min-h-screen">
+			<slot />
+		</Container>
+		<footer class="border-t dark:border-neutral-800 h-64">
+			<Container size="lg" class="flex items-center justify-between h-full">
+				<p class="text-sm text-neutral-600 dark:text-neutral-400">
+					Built by
+				</p>
+				<div>
+					<p class="text-sm text-neutral-600 dark:text-neutral-400">
+						© {new Date().getFullYear()}, Built with Astro, Tailwind CSS, and Vue 3
+					</p>
+				</div>
+				<div>
+					<p class="text-sm text-neutral-600 dark:text-neutral-400">
+						<a href="" class="hover:text-primary-500 dark:hover:text-primary-400">Privacy Policy</a>
+					</p>
+				</div>
+			</Container>
+		</footer>
+	</body>
+</html>

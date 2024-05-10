@@ -1,0 +1,14 @@
+---
+
+interface Props {
+  string: string
+}
+
+const { string } = Astro.props
+---
+
+<div style={`--i: ${string.length + 1}`} class="h-full type-writting inline-block">
+{string.split("").map((char, index) => (
+  <span style={`--i: ${index}`}>{char}</span>
+))}
+</div>

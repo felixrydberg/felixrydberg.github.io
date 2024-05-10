@@ -1,0 +1,36 @@
+---
+import {getCollection, type CollectionEntry} from "astro:content";
+
+type Props = {
+  entry: CollectionEntry<"projects">
+}
+
+const { entry } = Astro.props;
+const { collection } = entry;
+
+// Get the next and prev entries (modulo to wrap index)
+const items = (await getCollection("projects")).filter((post: any) => post.data.published)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const index = items.findIndex(x => x.slug === entry.slug)
+const prev = items[(index - 1 + items.length) % items.length]
+const next = items[(index + 1) % items.length];
+
+const links = [
+  { title: "Previous project", slug: prev.slug, d: "M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"},
+  { title: "Next project", slug: next.slug, d: "M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"},
+
+]
+---
+
+<div class="flex justify-center my-12 h-24 text-neutral-500 dark:text-neutral-400 text-md capitalize gap-4">
+  {links.map(({ title, slug,d }) => (
+    <div class="border border-neutral-300 w-48 dark:border-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-800 transition rounded">
+      <a class="flex flex-wrap justify-center items-center h-full w-full p-4 px-8" href={`/${collection}/${slug}`}>
+        <span class="basis-full text-center font-bold">{title}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d={d} />
+        </svg>
+      </a>
+    </div>
+  ))}
+</div>

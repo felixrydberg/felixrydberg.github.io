@@ -1,0 +1,89 @@
+@import url('./fonts.css');
+@import url('./keyframes.css');
+@import url('./markdown.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+
+}
+
+html {
+  /* font-family: system-ui, sans-serif; */
+  font-family: "Nunito", sans-serif;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+dialog {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 100ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  bottom: 0;
+}
+dialog[open] {
+  opacity: 1;
+  pointer-events: inherit;
+}
+
+code {
+
+}
+
+body > main {
+  @apply animate-[slide-up_300ms_ease];
+}
+
+.type-writting span {
+  display: inline-block;
+  animation: type-writing 100ms step-end calc(var(--i) * 50ms) 1 backwards;
+}
+
+.type-writting {
+  border-right: 1px solid currentColor;
+  animation: type-caret 750ms step-end calc(var(--i) * 50ms) 6 forwards;
+}
+
+/* Scroll */
+
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+*::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  width: 6px;
+  border: 1px solid transparent;
+}
+
+.light *::-webkit-scrollbar-thumb {
+  @apply bg-neutral-400;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  @apply bg-neutral-700;
+}

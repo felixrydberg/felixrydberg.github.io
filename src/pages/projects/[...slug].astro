@@ -1,0 +1,60 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content"
+import Layout from '@/layouts/base.astro';
+import CommonArticleBottomLayout from '@/components/common/article-bottom-layout.astro'
+import CommonArticleTopLayout from '@/components/common/article-top-layout.astro'
+import CommonTag from "@/components/common/tag.vue";
+import CommonTyping from "@/components/common/typing.astro";
+
+// Create the static projects pages
+export async function getStaticPaths() {
+	const projects = await getCollection("projects")
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: project,
+	}))
+}
+
+// Get the requested project
+type Props = CollectionEntry<"projects">
+const project = Astro.props
+const { title, summary } = project.data
+const { Content } = await project.render();
+
+const links = [
+	{
+		link: project.data.demoUrl,
+		text: "live-demo",
+		prefix: ":/reposity"
+	}, 
+	{
+		link: project.data.repoUrl,
+		text: "source-code",
+		prefix: ":/preview"
+	}
+]
+---
+
+<Layout title={`Project: ${title}`} description={summary}>
+	<CommonArticleTopLayout entry={project} />
+	<div>
+		<h1 class="text-4xl mb-4 font-medium">{title}</h1>
+		<div class="flex gap-1 mt-1">
+			{project.data.tags.map((tag) => (
+				<CommonTag tag={tag} />
+			))}
+		</div>
+		<div class="flex flex-col items-start mt-2 gap-1">
+			{links.map(({ link, text, prefix }) => 
+				link ?
+				<a href={link} target="_blank" class="text-blue-700 dark:text-blue-500 font-bold ml-1 text-md"><CommonTyping string={`200 ${prefix}/${text}`} /></a> :
+				<span class="text-red-700 dark:text-red-500 font-bold ml-1 text-md cursor-not-allowed select-none"><CommonTyping string={`404 ${prefix}/${text}`} /></span>
+			)}
+		</div>
+		<p>{summary}</p>
+	</div>
+	<div class="markdown-content">
+		<Content />
+	</div>
+	<CommonArticleBottomLayout entry={project} />
+</Layout>

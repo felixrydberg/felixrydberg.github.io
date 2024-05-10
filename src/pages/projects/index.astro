@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/base.astro';
+import Filter from '@/components/common/filter.vue';
+import { getCollection } from "astro:content"
+
+const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
+const tags: string[] = [... new Set([...projects.map((post: any) => post.data.tags).flat()])];
+---
+
+<Layout title="Portfolio: felixr" description="Portfolio website for various projects & employment history">
+	<h1 class="text-4xl my-8 mt-24 pt-6">Projects</h1>
+	<p class="text-lg my-4">Here are some of the projects I've worked on. You can filter them by tags below.</p>
+	<Filter client:load data={projects} tags={tags}  />
+</Layout>
+ 

@@ -1,0 +1,17 @@
+---
+import type {CollectionEntry} from "astro:content";
+
+type Props = {
+  entry: CollectionEntry<"projects">
+}
+
+const { entry } = Astro.props;
+
+---
+
+<div class="pt-16 pb-8 min-h-8 text-neutral-500 dark:text-neutral-400 text-sm capitalize">
+  <span>/</span>
+  <a href={`/${entry.collection}`} class="underline">{entry.collection}</a>
+  <span>/</span>
+  <span>{entry.slug}</span>
+</div>

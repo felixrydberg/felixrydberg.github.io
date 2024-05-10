@@ -1,0 +1,28 @@
+---
+import { twMerge } from 'tailwind-merge';
+
+type Props = {
+  size: "sm" | "md" | "lg" | "xl" | "2xl",
+  tag?: string,
+  class?: string,
+}
+
+const { size, tag = 'div' } = Astro.props;
+const className = Astro.props.class;
+
+const Element = tag;
+
+---
+
+<Element class:list={twMerge(
+  "w-full h-full mx-auto px-5",
+  `max-w-screen-${size}`,
+  // size === "sm" && "max-w-screen-sm",
+  // size === "md" && "max-w-screen-md",
+  // size === "lg" && "max-w-screen-lg",
+  // size === "xl" && "max-w-screen-xl",
+  // size === "2xl" && "max-w-screen-2xl",
+  className,
+)}>
+  <slot/>
+</Element>

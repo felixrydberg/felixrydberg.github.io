@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/base.astro';
+import { getCollection } from "astro:content"
+import CommonTag from '@/components/common/tag.vue';
+
+const projects = (await getCollection("experiences")).filter((post: any) => post.data.published);
+const formatDate = (string: string) => {
+	const date = new Date(string);
+  const month = date.toLocaleDateString("en-US", {
+    month: "short",
+  })
+	const year = date.toLocaleDateString("en-US", {
+		year: "numeric",
+	})
+	return `${month} ${year}`;
+};
+---
+
+<Layout title="Portfolio: felixr" description="Portfolio website for various projects & employment history" size="md">
+	{projects.map((project) => (
+		<div class="w-full py-8 pb-12 border-b-2 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-900">
+			<div>
+        <span class="text-sm capitalize font-bold"> {formatDate(project.data.startDate)} - { project.data.endDate !== undefined ? formatDate(project.data.endDate) : 'new' }</span>
+				<h4 class="text-lg font-bold text-black dark:text-white">{project.data.title}</h4>
+				<p class="capitalize">- {project.data.position}</p>
+				<p>{project.data.description}</p>
+			</div>
+		</div>
+	))}
+</Layout>
+ 
