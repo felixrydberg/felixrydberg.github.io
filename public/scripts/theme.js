@@ -1,5 +1,4 @@
 const changeTheme = () => {
-  console.log("changeTheme")
   const element = document.documentElement;
   const theme = element.classList.contains("dark") ? "light" : "dark";
 
@@ -36,13 +35,12 @@ const preloadTheme = () => {
 
 const initializeThemeButtons = () => {
   const themeButtons = document.querySelectorAll(".theme-button");
-  console.log(themeButtons)
   themeButtons.forEach((button) => {
     button.addEventListener("click", changeTheme);
   });
 }
 
-window.onload = () => {
+window.onload = async () => {
   document.addEventListener("astro:after-swap", initializeThemeButtons);
   initializeThemeButtons();
 }

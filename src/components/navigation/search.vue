@@ -101,7 +101,7 @@
   <div class="flex justify-center items-center slot-container" @click="handleClick">
     <slot></slot>
   </div>
-  <dialog class="fixed h-screen w-screen z-10" :open="dialog" @click="handleClick">
+  <dialog class="fixed h-screen w-screen z-50" :open="dialog" @click="handleClick">
     <div class="fixed h-screen w-screen flex opacity-50 bg-neutral-400 dark:bg-neutral-950"></div>
     <div class="fixed h-screen w-screen flex justify-center content-center pt-40 transition-all">
       <div class="flex flex-col h-4/5 md:h-1/2 w-4/5 md:w-1/2 bg-neutral-100 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-800 rounded-lg" @click.stop>

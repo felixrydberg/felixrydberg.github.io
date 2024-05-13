@@ -1,14 +1,55 @@
 ---
+import { twMerge } from "tailwind-merge";
 
 interface Props {
-  string: string
+  string: string;
+  class?: string;
+  duration?: number;
+  tag?: "div" | "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-const { string } = Astro.props
+const { string, duration = 50, tag = "div" } = Astro.props;
+const className = Astro.props.class || "";
+const Element = tag;
 ---
 
-<div style={`--i: ${string.length + 1}`} class="h-full type-writting inline-block">
-{string.split("").map((char, index) => (
-  <span style={`--i: ${index}`}>{char}</span>
-))}
-</div>
+{string.split("\n").map((row, index, arr) => {
+    const delayIndex = arr.slice(0, index).reduce((acc, row) => acc + row.length, 0);
+    const isLastRow = index === arr.length - 1;
+    const multiRow = arr.length > 1;
+    return (
+      <Element
+        class:list={["typing-row", {'last-row': isLastRow, 'multi-row': multiRow }, twMerge("h-full whitespace-pre break-all inline-block", className)]}
+        style={`--typing-delay: ${duration}ms;--delay: ${(delayIndex * duration) + duration}ms;--character-count: ${(row.length * duration) + duration}ms;`}
+      >
+        {/* {`--typing-delay: ${duration}ms;`} */}
+        {/* {`--delay: ${delayIndex * duration}ms;`} */}
+        {/* {`--character-count: ${row.length * duration}ms;`} */}
+        
+        {row.trim().split(" ").map((word, wordIndex, arr) => {
+          let addedSpace = false;
+          const lastWordDelay = arr.slice(0, wordIndex).reduce((acc, row) => acc + row.length, 0);
+          if (wordIndex !== arr.length - 1) {
+            word += " ";
+            addedSpace = true;
+          }
+          return <span class:list={{addedSpace}}>
+            {word.split("").map((char, index) => (
+              <span
+                class="char-span"
+                style={`--typing-delay: ${duration}ms;--delay: ${delayIndex + lastWordDelay + index}`}
+              >{char}</span>
+            ))}
+          </span>
+          // return word.split("").map((char, index) => (
+          //     <span
+          //       class="char-span"
+          //       style={`--typing-delay: ${duration}ms;--delay: ${delayIndex + lastWordDelay + index}`}
+          //     >{char}</span>
+          //   ))
+        })}
+
+        <span class="caret-span"></span>
+      </Element>
+    )
+  })}

@@ -36,25 +36,27 @@ const links = [
 ---
 
 <Layout title={`Project: ${title}`} description={summary}>
-	<CommonArticleTopLayout entry={project} />
-	<div>
-		<h1 class="text-4xl mb-4 font-medium">{title}</h1>
-		<div class="flex gap-1 mt-1">
-			{project.data.tags.map((tag) => (
-				<CommonTag tag={tag} />
-			))}
+	<div class="pt-24">
+		<CommonArticleTopLayout entry={project} />
+		<div>
+			<h1 class="text-4xl mb-4 font-medium">{title}</h1>
+			<div class="flex gap-1 mt-1">
+				{project.data.tags.map((tag) => (
+					<CommonTag tag={tag} />
+				))}
+			</div>
+			<div class="flex flex-col items-start mt-2 gap-1">
+				{links.map(({ link, text, prefix }) => 
+					link ?
+					<a href={link} target="_blank" class="text-blue-700 dark:text-blue-500 font-bold ml-1 text-md"><CommonTyping string={`200 ${prefix}/${text}`} /></a> :
+					<span class="text-red-700 dark:text-red-500 font-bold ml-1 text-md cursor-not-allowed select-none"><CommonTyping string={`404 ${prefix}/${text}`} /></span>
+				)}
+			</div>
+			<p>{summary}</p>
 		</div>
-		<div class="flex flex-col items-start mt-2 gap-1">
-			{links.map(({ link, text, prefix }) => 
-				link ?
-				<a href={link} target="_blank" class="text-blue-700 dark:text-blue-500 font-bold ml-1 text-md"><CommonTyping string={`200 ${prefix}/${text}`} /></a> :
-				<span class="text-red-700 dark:text-red-500 font-bold ml-1 text-md cursor-not-allowed select-none"><CommonTyping string={`404 ${prefix}/${text}`} /></span>
-			)}
+		<div class="markdown-content">
+			<Content />
 		</div>
-		<p>{summary}</p>
+		<CommonArticleBottomLayout entry={project} />
 	</div>
-	<div class="markdown-content">
-		<Content />
-	</div>
-	<CommonArticleBottomLayout entry={project} />
 </Layout>

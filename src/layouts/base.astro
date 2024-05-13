@@ -8,7 +8,7 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
-	size?: "sm" | "md" | "lg" | "xl" | "2xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "full",
 }
 
 const { title, description, image, size = "lg" } = Astro.props;
@@ -24,7 +24,7 @@ const entries = [...experience, ...projects]
 	</head>
 	<body class="min-h-screen h-full">
 		<NavigationHeader />
-		<Container size={size} tag="main" class="pt-16 min-h-screen">
+		<Container size={size} tag="main" class="min-h-screen h-full">
 			<slot />
 		</Container>
 		<footer class="border-t dark:border-neutral-800 h-64">

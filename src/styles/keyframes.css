@@ -19,6 +19,25 @@
 }
 
 @keyframes type-caret {
-  from, to { border-color: transparent }
-  50% { border-color: currentColor; }
+  from, to {
+    /* border-width: 10px; */
+    border-color: transparent;
+    /* border-color: red; */
+  }
+  50% {
+    /* border-width: 10px; */
+    border-color: currentColor;
+  }
+}
+
+@keyframes type-show-caret {
+  from {
+    /* border-width: 10px; */
+    border-color: currentColor;
+  }
+  to {
+    /* border-width: 10px; */
+    border-color: transparent;
+    /* border-color: red; */
+  }
 }

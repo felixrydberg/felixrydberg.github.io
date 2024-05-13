@@ -2,7 +2,7 @@
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
-  size: "sm" | "md" | "lg" | "xl" | "2xl",
+  size: "sm" | "md" | "lg" | "xl" | "2xl" | "full",
   tag?: string,
   class?: string,
 }
@@ -16,7 +16,7 @@ const Element = tag;
 
 <Element class:list={twMerge(
   "w-full h-full mx-auto px-5",
-  `max-w-screen-${size}`,
+  `max-w-${size ? "screen-" + size : "none"}`,
   // size === "sm" && "max-w-screen-sm",
   // size === "md" && "max-w-screen-md",
   // size === "lg" && "max-w-screen-lg",

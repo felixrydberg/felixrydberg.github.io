@@ -8,8 +8,10 @@ const tags: string[] = [... new Set([...projects.map((post: any) => post.data.ta
 ---
 
 <Layout title="Portfolio: felixr" description="Portfolio website for various projects & employment history">
-	<h1 class="text-4xl my-8 mt-24 pt-6">Projects</h1>
-	<p class="text-lg my-4">Here are some of the projects I've worked on. You can filter them by tags below.</p>
-	<Filter client:load data={projects} tags={tags}  />
+	<div class="pt-[212px]">
+		<h1 class="text-4xl mb-8 ">Projects</h1>
+		<p class="text-lg my-4">Here are some of the projects I've worked on. You can filter them by tags below.</p>
+		<Filter client:load data={projects} tags={tags}  />
+	</div>
 </Layout>
  

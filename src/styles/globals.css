@@ -47,14 +47,36 @@ body > main {
   @apply animate-[slide-up_300ms_ease];
 }
 
-.type-writting span {
-  display: inline-block;
-  animation: type-writing 100ms step-end calc(var(--i) * 50ms) 1 backwards;
+/* .caret-span,
+.char-span,
+.word-span {
+  white-space: pre;
+} */
+
+.caret-span {
+  border-right: 1px solid currentColor;
 }
 
-.type-writting {
-  border-right: 1px solid currentColor;
-  animation: type-caret 750ms step-end calc(var(--i) * 50ms) 6 forwards;
+.typing-row.multi-row .caret-span {
+  border-color: transparent;
+}
+
+.typing-row:not(.last-row) .caret-span {
+  border-color: transparent;
+  animation: type-show-caret var(--character-count) step-end var(--delay) 1 forwards;
+}
+
+.typing-row.last-row .caret-span {
+  animation: type-caret 750ms step-end calc(var(--delay) + var(--character-count) + 100ms) 6 forwards;
+}
+
+.char-span {
+  display: inline-block;
+  animation: type-writing 100ms step-end calc(var(--delay) * var(--typing-delay)) 1 backwards;
+}
+
+span[class*="-on-"].inline-block {
+  display: inline-block;
 }
 
 /* Scroll */
