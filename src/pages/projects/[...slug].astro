@@ -42,7 +42,7 @@ const links = [
 			<h1 class="text-4xl mb-4 font-medium">{title}</h1>
 			<div class="flex gap-1 mt-1">
 				{project.data.tags.map((tag) => (
-					<CommonTag tag={tag} />
+					<CommonTag tag={tag} loading="eager" />
 				))}
 			</div>
 			<div class="flex flex-col items-start mt-2 gap-1">

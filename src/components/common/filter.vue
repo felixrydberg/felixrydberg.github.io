@@ -65,7 +65,7 @@ const handleClick = (event: MouseEvent) => {
             :for="tag"
             class="w-full"
           >
-            <common-tag :tag="tag" />
+            <common-tag :tag="tag" loading="eager" />
           </label>
         </li>
       </ul>
@@ -80,6 +80,7 @@ const handleClick = (event: MouseEvent) => {
           class="rounded border-2 border-neutral-200 dark:border-neutral-800"
           :id="`filter-${result.collection}-${result.slug}`"
           :result="result"
+          loading="eager"
         />
       </div>
     </div>
