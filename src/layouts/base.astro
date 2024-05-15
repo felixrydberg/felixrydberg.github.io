@@ -2,7 +2,6 @@
 import CommonHead from '@/components/common/head.astro';
 import NavigationHeader from '@/components/navigation/header.astro';
 import Container from '@/components/common/container.astro';
-import { getCollection } from "astro:content"
 
 interface Props {
 	title: string;
@@ -12,9 +11,6 @@ interface Props {
 }
 
 const { title, description, image, size = "lg" } = Astro.props;
-const experience = (await getCollection("experiences")).filter((post: any) => post.data.published);
-const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
-const entries = [...experience, ...projects]
 ---
 
 <!doctype html>

@@ -6,18 +6,18 @@ import CommonProjectListItem from '@/components/common/project-list-item.vue';
 import { getCollection } from "astro:content"
 
 const projects = (await getCollection("projects")).filter((post: any) => post.data.published).slice(0, 3);
-const timeline = [
-  {
-    title: 'Experiences',
-    href: '/experiences',
-    body: 'A list of my past employment history.'
-  },
-  {
-    title: 'Projects',
-    href: '/projects',
-    body: 'A collection of projects I have worked on.'
-  },
-]
+// const timeline = [
+//   {
+//     title: 'Experiences',
+//     href: '/experiences',
+//     body: 'A list of my past employment history.'
+//   },
+//   {
+//     title: 'Projects',
+//     href: '/projects',
+//     body: 'A collection of projects I have worked on.'
+//   },
+// ]
 ---
 
 <Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history" size="xl">

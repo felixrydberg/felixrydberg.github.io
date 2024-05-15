@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/base.astro';
 import { getCollection } from "astro:content"
-import CommonTag from '@/components/common/tag.vue';
 import { formatDate } from '@/utils/index';
 
 const projects = (await getCollection("experiences")).filter((post: any) => post.data.published);

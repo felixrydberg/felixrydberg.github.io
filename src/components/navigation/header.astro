@@ -25,15 +25,7 @@ const links = [
       <h1 class="text-xl">Felix Rydberg</h1>
     </div>
     <div class="hidden lg:flex flex-1 flex-wrap justify-center content-center">
-      {links.map((link, index) => {
-        // if (links.length - 1 !== index) {
-        //   return (
-        //     <Link class="text-neutral-700 text-lg dark:text-neutral-200 tracking-wider" href={link.href}>{link.text}</Link>
-        //     <span class="text-neutral-700 text-lg dark:text-neutral-200 mt-2 leading-7 font-bold">//</span>
-        //   )
-        // }
-        return <Link class="text-neutral-700 text-lg dark:text-neutral-200 tracking-wider" href={link.href}>{link.text}</Link>
-      })}
+      {links.map((link) => <Link class="text-neutral-700 text-lg dark:text-neutral-200 tracking-wider" href={link.href}>{link.text}</Link>)}
     </div>
     <div class="flex flex-none flex-wrap w-48 content-center">
       <NavigationSearch />
