@@ -67,7 +67,10 @@ body > main {
 }
 
 .typing-row.last-row .caret-span {
-  animation: type-caret 750ms step-end calc(var(--delay) + var(--character-count) + 100ms) 6 forwards;
+  animation:
+    type-show-caret var(--character-count) step-end var(--delay) 1 forwards,
+    type-caret 750ms step-end calc(var(--delay) + var(--character-count) + 100ms) 6 forwards
+  ;
 }
 
 .char-span {

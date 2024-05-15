@@ -28,19 +28,20 @@ const entries = [...experience, ...projects]
 			<slot />
 		</Container>
 		<footer class="border-t dark:border-neutral-800 h-64">
-			<Container size="lg" class="flex items-center justify-between h-full">
-				<p class="text-sm text-neutral-600 dark:text-neutral-400">
-					Built by
-				</p>
-				<div>
-					<p class="text-sm text-neutral-600 dark:text-neutral-400">
-						© {new Date().getFullYear()}, Built with Astro, Tailwind CSS, and Vue 3
+			<Container size="lg" class="flex items-center justify-between h-full text-neutral-600 dark:text-neutral-400">
+				<div class="text-sm">
+					<p>
+						Built by <a href="https://github.com/felixrydberg" target="_blank">Felix Rydberg</a>
 					</p>
+					<p>Updated @ {new Date().toLocaleDateString()}</p>
 				</div>
 				<div>
-					<p class="text-sm text-neutral-600 dark:text-neutral-400">
-						<a href="" class="hover:text-primary-500 dark:hover:text-primary-400">Privacy Policy</a>
-					</p>
+					<p class="text-lg">Contacts</p>
+					<ol class="pl-6 list-disc">
+						<li><a href="mailto:felixryd@gmail.com">felixryd@gmail.com</a></li>
+						<li><a href="tel:+46793138309">+46793138309</a></li>
+						<li><a href="https://github.com/felixrydberg" target="_blank">Github</a></li>
+					</ol>
 				</div>
 			</Container>
 		</footer>

@@ -27,13 +27,11 @@ const Element = tag;
         {/* {`--character-count: ${row.length * duration}ms;`} */}
         
         {row.trim().split(" ").map((word, wordIndex, arr) => {
-          let addedSpace = false;
           const lastWordDelay = arr.slice(0, wordIndex).reduce((acc, row) => acc + row.length, 0);
           if (wordIndex !== arr.length - 1) {
             word += " ";
-            addedSpace = true;
           }
-          return <span class:list={{addedSpace}}>
+          return <span>
             {word.split("").map((char, index) => (
               <span
                 class="char-span"

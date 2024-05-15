@@ -2,50 +2,47 @@
 import Layout from '@/layouts/base.astro';
 import CommonTyping from '@/components/common/typing.astro';
 import CommonContainer from '@/components/common/container.astro';
+import CommonProjectListItem from '@/components/common/project-list-item.vue';
+import { getCollection } from "astro:content"
 
-const links = [
-  {
-    title: 'Projects',
-    href: '/projects',
-    body: 'A collection of projects I have worked on.'
-  },
+const projects = (await getCollection("projects")).filter((post: any) => post.data.published).slice(0, 3);
+const timeline = [
   {
     title: 'Experiences',
     href: '/experiences',
     body: 'A list of my past employment history.'
   },
   {
-    title: 'Contact',
-    href: '/contact',
-    body: 'How to get in touch with me.'
-  }
-  
+    title: 'Projects',
+    href: '/projects',
+    body: 'A collection of projects I have worked on.'
+  },
 ]
 ---
 
-<Layout title="Portfolio: felixr" description="Portfolio website for various projects & employment history" size="full">
+<Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history" size="xl">
   <div class="grid grid-rows-2 grid-cols-1 lg:grid-rows-1 lg:grid-cols-2 h-screen">
-    <div class="row-start-1 row-end-1 col-start-1 col-end-1 lg:col-start-1 lg:col-end-1 lg:pl-12 xl:pl-24 xl:ml-24 flex flex-col justify-center">
+    <div class="row-start-1 row-end-1 col-start-1 col-end-1 lg:col-start-1 lg:col-end-1 flex flex-col justify-center">
       <div class="h-64 px-8">
         <CommonTyping class="w-full h-fit my-8 text-6xl lg:text-8xl font-light" duration={80} tag="h1" string="Welcome." />
-        <CommonTyping class="w-full h-fit flex flex-wrap text-lg" duration={20} tag="p" string="My name is Felix Rydberg, Im a frontend developer based in Sweden.\n On this site you can find what I have worked on aswell as my paste work experiences." />
+        <CommonTyping class="w-full h-fit flex flex-wrap text-lg" duration={20} tag="p" string="My name is Felix Rydberg, Im a web developer based in Sweden.\n On this site you can find what I have worked on aswell as my past work experiences." />
       </div>
     </div>
     <div class="row-start-2 row-end-2 lg:row-start-1 lg:row-end-1 col-start-1 col-end-1 lg:col-start-2 lg:col-end-2 flex flex-col justify-start lg:justify-center">
       <div>
         <div class="h-0 w-full">
-          <div class="inline-block lg:border-t-[6px] lg:border-l-[6px] h-32 w-32 lg:rounded-tl-[24px] border-blue-300 dark:border-blue-400"></div>          
+          <div class="inline-block lg:border-t-[6px] lg:border-l-[6px] h-32 w-32 lg:rounded-tl-[24px] border-green-300 dark:border-green-400"></div>          
         </div>
         <ul class="ml-8 mt-8">
           <li class="text-xl font-bold">Quicklinks</li>
           <li><a href="/projects"><span class="text-neutral-600 dark:text-neutral-400">-</span> Projects</a></li>
           <li><a href="/experiences"><span class="text-neutral-600 dark:text-neutral-400">-</span> Experiences</a></li>
           <li class="hidden md:block text-neutral-600 dark:text-neutral-400">
-            <p>- You can search for tags by pressing <span>CTRL</span> or <span>CMD</span> & K</p>
+            <p>- You can search for tags by pressing <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">CTRL</kbd> or <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">CMD</kbd> & <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">K</kbd></p>
           </li>
-          <li class="flex content-center text-neutral-600 dark:text-neutral-400">
+          <li class="flex md:hidden content-center text-neutral-600 dark:text-neutral-400">
             - Scroll down to find more information about me.
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mt-[2px]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mt-[2px] ml-1">
               <path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 1 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" />
             </svg>
           </li>
@@ -53,26 +50,56 @@ const links = [
       </div>
     </div>
   </div>
-  <CommonContainer size="lg" class="flex">
-    <ul class="w-full mt-8 mb-32">
-    {links.map((link, index, arr) => 
-      <li class="grid grid-cols-[5%_95%] md:grid-cols-[48%_4%_48%] grid-rows-1">
-        <a href={link.href} class:list={{
-          'md:col-[1] mt-0': index % 2 === 0,
-          'md:col-[3]': index % 2 === 1,
-          'mb-0': index === arr.length - 1,
-        }} class="block my-8 col-[2] p-4 border border-neutral-200 dark:border-neutral-900 rounded-lg shadow-xl">
-          <h2 class="text-2xl font-semibold">{link.title}</h2>
-          <p class="">{link.body}</p>
-        </a>
-        <div class="col-[1] md:col-[2] row-[1] h-full flex justify-center relative">
-          <div
-           class:list={{'rounded-t-full mt-4': index === 0, 'rounded-b-full -mt-4': index === arr.length - 1}} class="w-2 h-full bg-neutral-300 dark:bg-neutral-900"
-          />
-        </div>
-      </li>
-    )}
-    </ul>
+  <CommonContainer size="sm" class="mb-16 gap-y-[96px]">
+    <!-- Timeline -->
+    <!-- <div>
+      <ul class="w-full mt-8 mb-32">
+      {timeline.map((event, index, arr) => 
+        <li class="grid grid-cols-[5%_95%] md:grid-cols-[48%_4%_48%] grid-rows-1">
+          <a href={event.href} class:list={{
+            'md:col-[1] mt-0': index % 2 === 0,
+            'md:col-[3]': index % 2 === 1,
+            'mb-0': index === arr.length - 1,
+          }} class="block my-8 col-[2] p-4 border border-neutral-200 dark:border-neutral-900 rounded-lg shadow-xl">
+            <h2 class="text-xl">{event.title}</h2>
+            <p class="">{event.body}</p>
+          </a>
+          <div class="col-[1] md:col-[2] row-[1] h-full flex justify-center relative">
+            <div
+             class:list={{'rounded-t-full mt-4': index === 0, 'rounded-b-full -mt-4': index === arr.length - 1}} class="w-2 h-full bg-neutral-300 dark:bg-neutral-900"
+            />
+          </div>
+        </li>
+      )}
+      </ul>
+    </div> -->
+
+    <!-- About me -->
+    <div class="grid gap-y-9 mb-24 text-md">
+      <p>Im a 21 year old from Malmo, Sweden. I have a passion for creating and developing websites and applications. I have experience in both frontend and backend development, and I'm always looking to learn new things.</p>
+      <p>Almost all of my projects are Js based, by this I mean they utilize different frameworks in the Js eco-system. Most of my projects are written in Typescript.</p>
+      <p>Outside of programming Im instrested in cars, mc and tech. This ranges from personal-pomputers to networks, servers and home-automation. Programming is still my main time sink (Which I really enjoy), so I spend alot of time watching programming videos.</p>
+    </div>
+
+    <!-- Latest projects -->
+    <div>
+      <div class="flex justify-between items-center">
+        <h2 class="text-3xl">Latest projects</h2>
+        <a class="underline" href="/projects">View all</a>
+      </div>
+      <ul class="mt-8">
+        {projects.map((project, index, arr) => 
+          <li class:list={{'mb-0': index === arr.length - 1, 'border-b border-neutral-200 dark:border-neutral-800': index !== arr.length - 1}} class="my-8 pb-8">
+            <CommonProjectListItem result={project} loading="lazy" />
+          </li>
+        )}
+      </ul>
+    </div>
+
+    <!-- Discord Community Server -->
+    <div>
+      
+    </div>
   </CommonContainer>
 </Layout>
 
@@ -81,26 +108,4 @@ const links = [
     animation: unset !important;
     padding: 0px 0px 0px 0px !important;
   }
-
-  body > header {
-    /* top: 100vh; */
-    /* display: none; */
-  }
 </style>
-
-<!-- <script>
-  const header = document.querySelector('body > header');
-  const banner = document.querySelector('body > main > div:first-child');
-  const scrollHandler = () => {
-    const windowHeight = window.innerHeight;
-    const scrollY = window.scrollY;
-    if (!header || !banner) {
-      return;
-    }
-    const value = windowHeight - scrollY;
-    (header as HTMLElement).style.top = `${value <= 0 ? 0 : value}px`;
-    (banner as HTMLElement).style.top = `-${scrollY}px`;
-  };
-  document.addEventListener('scroll', scrollHandler);
-  scrollHandler();
-</script> -->

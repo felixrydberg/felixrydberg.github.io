@@ -2,21 +2,13 @@
 import Layout from '@/layouts/base.astro';
 import { getCollection } from "astro:content"
 import CommonTag from '@/components/common/tag.vue';
+import { formatDate } from '@/utils/index';
 
 const projects = (await getCollection("experiences")).filter((post: any) => post.data.published);
-const formatDate = (string: string) => {
-	const date = new Date(string);
-  const month = date.toLocaleDateString("en-US", {
-    month: "short",
-  })
-	const year = date.toLocaleDateString("en-US", {
-		year: "numeric",
-	})
-	return `${month} ${year}`;
-};
 ---
 
-<Layout title="Portfolio: felixr" description="Portfolio website for various projects & employment history" size="md">
+<Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history" size="md">
+	<div class="pt-24">
 	{projects.map((project) => (
 		<div class="w-full py-8 pb-12 border-b-2 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-900">
 			<div>
@@ -27,5 +19,6 @@ const formatDate = (string: string) => {
 			</div>
 		</div>
 	))}
+	</div>
 </Layout>
  

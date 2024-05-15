@@ -119,6 +119,7 @@
             @mouseover="active = index"
             :id="`search-${result.collection}-${result.slug}`"
             :result="result"
+            :loading="'eager'"
           />
         </div>
       </div>
