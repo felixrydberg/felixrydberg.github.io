@@ -6,20 +6,22 @@ interface Props {
   class?: string;
   duration?: number;
   tag?: "div" | "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  passive?: boolean;
+  delay?: number;
 }
 
-const { string, duration = 50, tag = "div" } = Astro.props;
+const { string, duration = 50, tag = "div", passive = true, delay = 0 } = Astro.props;
 const className = Astro.props.class || "";
 const Element = tag;
 ---
 
 {string.split("\n").map((row, index, arr) => {
-    const delayIndex = arr.slice(0, index).reduce((acc, row) => acc + row.length, 0);
+    const delayIndex = arr.slice(0, index).reduce((acc, row) => acc + row.length, 0) + delay;
     const isLastRow = index === arr.length - 1;
     const multiRow = arr.length > 1;
     return (
       <Element
-        class:list={["typing-row", {'last-row': isLastRow, 'multi-row': multiRow }, twMerge("h-full whitespace-pre break-all inline-block", className)]}
+        class:list={["typing-row", {'last-row': isLastRow, 'multi-row': multiRow, passive }, twMerge("h-full whitespace-pre break-all inline-block", className)]}
         style={`--typing-delay: ${duration}ms;--delay: ${(delayIndex * duration) + duration}ms;--character-count: ${(row.length * duration) + duration}ms;`}
       >
         {/* {`--typing-delay: ${duration}ms;`} */}

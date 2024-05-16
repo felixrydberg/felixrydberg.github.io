@@ -2,22 +2,35 @@
 import Layout from '@/layouts/base.astro';
 import { getCollection } from "astro:content"
 import { formatDate } from '@/utils/index';
+import type { CollectionEntry } from 'astro:content';
 
-const projects = (await getCollection("experiences")).filter((post: any) => post.data.published);
+const collection = (await getCollection("experiences")).filter((post: any) => post.data.published);
+const experiences = await Promise.all(collection.map(async (experience: CollectionEntry<"experiences">) => {
+	const { Content } = await experience.render()
+	return {
+		Content,
+		...experience
+	}
+}))
 ---
 
 <Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history" size="md">
 	<div class="pt-24">
-	{projects.map((project) => (
+	{experiences.map((experience) => (
 		<div class="w-full py-8 pb-12 border-b-2 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-900">
 			<div>
-        <span class="text-sm capitalize font-bold"> {formatDate(project.data.startDate)} - { project.data.endDate !== undefined ? formatDate(project.data.endDate) : 'new' }</span>
-				<h4 class="text-lg font-bold text-black dark:text-white">{project.data.title}</h4>
-				<p class="capitalize">- {project.data.position}</p>
-				<p>{project.data.description}</p>
+        <span class="text-sm capitalize font-bold"> {formatDate(experience.data.startDate)} - { experience.data.endDate !== undefined ? formatDate(experience.data.endDate) : 'new' }</span>
+				<h4 class="text-lg font-bold text-black dark:text-white">{experience.data.title}</h4>
+				<p class="capitalize font-bold">{experience.data.position}</p>
+				<p>{experience.data.description}</p>
+			</div>
+			<div class="markdown-content">
+				<experience.Content />
 			</div>
 		</div>
 	))}
 	</div>
 </Layout>
- 
+
+<style>
+</style>

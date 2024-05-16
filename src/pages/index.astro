@@ -24,8 +24,8 @@ const projects = (await getCollection("projects")).filter((post: any) => post.da
   <div class="grid grid-rows-2 grid-cols-1 lg:grid-rows-1 lg:grid-cols-2 h-screen">
     <div class="row-start-1 row-end-1 col-start-1 col-end-1 lg:col-start-1 lg:col-end-1 flex flex-col justify-center">
       <div class="h-64 px-8">
-        <CommonTyping class="w-full h-fit my-8 text-6xl lg:text-8xl font-light" duration={80} tag="h1" string="Welcome." />
-        <CommonTyping class="w-full h-fit flex flex-wrap text-lg" duration={20} tag="p" string="My name is Felix Rydberg, Im a web developer based in Sweden.\n On this site you can find what I have worked on aswell as my past work experiences." />
+        <CommonTyping class="w-full h-fit my-8 text-6xl lg:text-8xl font-light" passive={false} duration={80} tag="h1" string="Welcome." />
+        <CommonTyping class="w-full h-fit flex flex-wrap text-lg" delay={40} duration={20} tag="p" string="My name is Felix Rydberg, Im a web developer based in Sweden.\n On this site you can find what I have worked on aswell as my past work experiences." />
       </div>
     </div>
     <div class="row-start-2 row-end-2 lg:row-start-1 lg:row-end-1 col-start-1 col-end-1 lg:col-start-2 lg:col-end-2 flex flex-col justify-start lg:justify-center">
