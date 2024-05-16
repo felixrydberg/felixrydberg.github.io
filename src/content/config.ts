@@ -2,7 +2,7 @@
 import { defineCollection, z } from 'astro:content';
 
 // 2. Define your collection(s)
-const experiences = defineCollection({
+const work = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
@@ -35,6 +35,6 @@ const projects = defineCollection({
 //    This key should match your collection directory name in "src/content"
 
 export const collections = {
-  experiences,
+  work,
   projects,
 };

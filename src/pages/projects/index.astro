@@ -4,7 +4,7 @@ import Filter from '@/components/common/filter.vue';
 import { getCollection } from "astro:content"
 
 const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
-const tags: string[] = [... new Set([...projects.map((post: any) => post.data.tags).flat()])];
+const tags: string[] = [... new Set([...projects.map((post: any) => post.data.tags).flat()])].sort();
 ---
 
 <Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history">

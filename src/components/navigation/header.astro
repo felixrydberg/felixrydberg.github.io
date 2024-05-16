@@ -4,6 +4,8 @@ import Link from '@/components/ui/link.astro'
 import CommonContainer from '@/components/common/container.astro'
 import NavigationSearch from '@/components/navigation/search.astro'
 
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^/]+/g)
 const links = [
   {
     href: '/',
@@ -14,22 +16,28 @@ const links = [
     text: 'Projects'
   },
   {
-    href: '/experiences',
-    text: 'Experiences'
+    href: '/work',
+    text: 'Work'
   },
 ]
 ---
 <header class="fixed h-16 inset-x-0 mx-auto bg-neutral-100 dark:bg-neutral-950/90 border border-neutral-200 dark:border-neutral-800 rounded-lg">
-  <CommonContainer size="lg" class="md:flex">
-    <div class="flex flex-none w-48 items-center">
-      <h1 class="text-xl">Felix Rydberg</h1>
-    </div>
+  <CommonContainer size="sm" class="flex justify-end lg:justify-between relative">
     <div class="hidden lg:flex flex-1 flex-wrap justify-center content-center">
-      {links.map((link) => <Link class="text-neutral-700 text-lg dark:text-neutral-200 tracking-wider" href={link.href}>{link.text}</Link>)}
+      {links.map((link) => 
+        <Link
+          class="text-neutral-700 text-md dark:text-neutral-200 tracking-wider" 
+          class:list={[pathname === link.href || `/${subpath?.[0]}` === link.href ? 'bg-neutral-200 dark:bg-neutral-800' : '']}
+          href={link.href}
+        >
+          {link.text}
+        </Link>
+      )}
     </div>
-    <div class="flex flex-none flex-wrap w-48 content-center">
+
+    <div class="absolute right-0 top-[13px] flex flex-none flex-wrap content-center">
       <NavigationSearch />
-      <Button class="theme-button text-neutral-700 dark:text-neutral-300 rounded-full p-2">
+      <Button class="theme-button hidden lg:block text-neutral-700 dark:text-neutral-300 rounded-lg p-2 m-0">
         <span class="block dark:hidden animate-[spin_500ms_ease]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path fill-rule="evenodd" d="M7.455 2.004a.75.75 0 0 1 .26.77 7 7 0 0 0 9.958 7.967.75.75 0 0 1 1.067.853A8.5 8.5 0 1 1 6.647 1.921a.75.75 0 0 1 .808.083Z" clip-rule="evenodd" />
@@ -38,20 +46,29 @@ const links = [
         <span class="hidden dark:block animate-[spin_500ms_ease]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
             <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
-          </svg>                 
+          </svg>
         </span>
       </Button>
-    </div>
-
-    <div class="flex lg:hidden">
-      <button class="font-medium rounded-lg text-sm" type="button" data-drawer-target="navigation-drawer" data-drawer-show="navigation-drawer" aria-controls="navigation-drawer">
+      <Button class="navigation-drawer-button font-medium m-0 rounded-lg p-2 text-sm lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>               
-      </button>
+      </Button>
     </div>
-    <div id="navigation-drawer" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-neutral-100 w-80 dark:bg-neutral-950" tabindex="-1" aria-labelledby="drawer-label">
-      
-   </div>
+    <div id="navigation-drawer" class="lg:hidden rounded-r-lg fixed p-4 top-0 left-0 z-20 w-64 h-full transition-all duration-300 transform -translate-x-full bg-neutral-200 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg">
+      <h1 class="text-xl text-center">Felix Rydberg</h1>
+      <ul class="mt-4">
+        {links.map((link) => 
+          <li>
+            <Link
+              class="text-neutral-700 dark:text-neutral-300 text-lg tracking-wider" 
+              class:list={[pathname === link.href || `/${subpath?.[0]}` === link.href ? 'bg-neutral-200 dark:bg-neutral-800' : '']}
+              href={link.href}
+            >
+              {link.text}
+            </Link>
+          </li>
+        )}
+    </div>
   </CommonContainer>
 </header>

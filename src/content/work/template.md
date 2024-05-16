@@ -6,6 +6,7 @@ position: "Frontend Developer"
 location: ""
 tags:
 - "Astro"
+- "Cloudflare Pages"
 - "Cloudflare R2"
 - "Favro"
 - "Firebase"

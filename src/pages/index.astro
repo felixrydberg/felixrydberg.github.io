@@ -8,8 +8,8 @@ import { getCollection } from "astro:content"
 const projects = (await getCollection("projects")).filter((post: any) => post.data.published).slice(0, 3);
 // const timeline = [
 //   {
-//     title: 'Experiences',
-//     href: '/experiences',
+//     title: 'Work',
+//     href: '/work',
 //     body: 'A list of my past employment history.'
 //   },
 //   {
@@ -36,7 +36,7 @@ const projects = (await getCollection("projects")).filter((post: any) => post.da
         <ul class="ml-8 mt-8">
           <li class="text-xl font-bold">Quicklinks</li>
           <li><a href="/projects"><span class="text-neutral-600 dark:text-neutral-400">-</span> Projects</a></li>
-          <li><a href="/experiences"><span class="text-neutral-600 dark:text-neutral-400">-</span> Experiences</a></li>
+          <li><a href="/work"><span class="text-neutral-600 dark:text-neutral-400">-</span> Work</a></li>
           <li class="hidden md:block text-neutral-600 dark:text-neutral-400">
             <p>- You can search for tags by pressing <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">CTRL</kbd> or <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">CMD</kbd> & <kbd class="border border-neutral-200 dark:border-neutral-900 p-1 py-[2px] rounded">K</kbd></p>
           </li>

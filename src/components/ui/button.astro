@@ -8,6 +8,6 @@ const { } = Astro.props;
 const className = Astro.props.class;
 ---
 
-<button class={twMerge('block bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 transition ease-in duration-100 py-1 px-3 my-1 mx-4 rounded-lg', className)}>
+<button class={twMerge('block bg-transparent hover:bg-neutral-200 dark:hover:bg-neutral-800 transition ease-in duration-100 py-1 px-3 my-1 mx-4 rounded-lg', className)}>
   <slot></slot>
 </button>

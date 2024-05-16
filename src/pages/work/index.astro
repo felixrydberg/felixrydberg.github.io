@@ -1,0 +1,36 @@
+---
+import Layout from '@/layouts/base.astro';
+import { getCollection } from "astro:content"
+import { formatDate } from '@/utils/index';
+import type { CollectionEntry } from 'astro:content';
+
+const collection = (await getCollection("work")).filter((post: any) => post.data.published);
+const work = await Promise.all(collection.map(async (workplace: CollectionEntry<"work">) => {
+	const { Content } = await workplace.render()
+	return {
+		Content,
+		...workplace
+	}
+}))
+---
+
+<Layout title="Portfolio: Felix Rydberg" description="Portfolio website for various projects & employment history" size="md">
+	<div class="pt-24">
+	{work.map((workplace) => (
+		<div class="w-full py-8 pb-12 border-b-2 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-900">
+			<div>
+        <span class="text-sm capitalize font-bold"> {formatDate(workplace.data.startDate)} - { workplace.data.endDate !== undefined ? formatDate(workplace.data.endDate) : 'new' }</span>
+				<h4 class="text-lg font-bold text-black dark:text-white">{workplace.data.title}</h4>
+				<p class="capitalize font-bold">{workplace.data.position}</p>
+				<p>{workplace.data.description}</p>
+			</div>
+			<div class="markdown-content">
+				<workplace.Content />
+			</div>
+		</div>
+	))}
+	</div>
+</Layout>
+
+<style>
+</style>

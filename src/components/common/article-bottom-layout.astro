@@ -16,19 +16,23 @@ const prev = items[(index - 1 + items.length) % items.length]
 const next = items[(index + 1) % items.length];
 
 const links = [
-  { title: "Previous project", slug: prev.slug, d: "M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"},
-  { title: "Next project", slug: next.slug, d: "M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"},
+  { title: "Previous", slug: prev.slug, name: prev.data.title },
+  { title: "Next", slug: next.slug, name: next.data.title },
 
 ]
 ---
 
 <div class="flex justify-center my-12 h-24 text-neutral-500 dark:text-neutral-400 text-md capitalize gap-4">
-  {links.map(({ title, slug,d }) => (
-    <div class="border border-neutral-300 w-48 dark:border-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-800 transition rounded">
-      <a class="flex flex-wrap justify-center items-center h-full w-full p-4 px-8" href={`/${collection}/${slug}`}>
-        <span class="basis-full text-center font-bold">{title}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d={d} />
+  {links.map(({ title, slug, name }, index) => (
+    <div class="border border-neutral-300 w-64 dark:border-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-800 rounded group transition-colors duration-200 ease-in-out">
+      <a class="flex items-center h-full w-full p-4 justify-end" class:list={{'flex-row-reverse': index === 0}} href={`/${collection}/${slug}`}>
+        <div class="flex flex-col justify-between h-full p-2">
+          <span class="text-xs uppercase font-semibold" class:list={{'text-end': index === 1}}>{title}</span>
+          <span class="text-md max-w-[116px] md:max-w-48 font-bold truncate" class:list={{'text-end': index === 1}}>{name}</span>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white" class:list={{'rotate-180': index === 0}}>
+          <line x1="5" y1="12" x2="19" y2="12" class="scale-x-0 group-hover:scale-x-100 translate-x-4 group-hover:translate-x-1 transition-all duration-200 ease-in-out" />
+          <polyline points="12 5 19 12 12 19" class="translate-x-0 group-hover:translate-x-1 transition-all duration-200 ease-in-out" />
         </svg>
       </a>
     </div>

@@ -49,12 +49,12 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div class="flex md:flex-nowrap flex-wrap gap-x-2">
-    <div class="md:w-64 w-full">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div class="col-span-3 sm:col-span-1">
       <div>
 
       </div>
-      <ul class="flex flex-wrap w-full gap-y-2" @click="handleClick">
+      <ul class="flex flex-wrap w-full gap-y-2 md:sticky md:top-24" @click="handleClick">
         <li
           v-for="tag in props.tags"
           :key="`common-filter-${tag}`"
@@ -70,13 +70,13 @@ const handleClick = (event: MouseEvent) => {
         </li>
       </ul>
     </div>
-    <div class="w-full">
+    <div class="col-span-3 sm:col-span-2">
       <div class="flex h-full flex-col gap-y-2">
         <div v-if="results.length === 0" class="flex justify-center items-center h-full">
           <p class="text-center text-neutral-500 dark:text-neutral-400">No results found</p>
         </div>
         <common-project-list-item
-          v-for="(result, index) in results"
+          v-for="result in results"
           class="rounded border-2 border-neutral-200 dark:border-neutral-800"
           :id="`filter-${result.collection}-${result.slug}`"
           :result="result"
