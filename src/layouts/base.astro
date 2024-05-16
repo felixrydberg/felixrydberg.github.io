@@ -34,12 +34,28 @@ const { title, description, image, size = "lg" } = Astro.props;
 				<div>
 					<p class="text-lg">Contacts</p>
 					<ol class="pl-6 list-disc">
-						<li><a href="mailto:felixryd@gmail.com">felixryd@gmail.com</a></li>
-						<li><a href="tel:+46793138309">+46793138309</a></li>
+						<li><a id="email"><noscript>JS is required to view email</noscript></a></li>
+						<li><a id="number"><noscript>JS is required to view number</noscript></a></li>
 						<li><a href="https://github.com/felixrydberg" target="_blank">Github</a></li>
 					</ol>
 				</div>
 			</Container>
 		</footer>
+		<script>
+			const emailNode = document.getElementById("email");
+			const numberNode = document.getElementById("number");
+
+			const email = "ZmVsaXhyeWRAZ21haWwuY29t";
+			const number = "KzQ2NzkzMTM4MzA5";
+
+			if (emailNode) {
+				emailNode.setAttribute('href', `mailto:${atob(email)}`);
+				emailNode.textContent = atob(email);
+			}
+			if (numberNode) {
+				numberNode.setAttribute('href', `tel:${atob(number)}`);
+				numberNode.textContent = atob(number);
+			}
+		</script>
 	</body>
 </html>
