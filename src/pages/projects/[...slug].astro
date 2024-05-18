@@ -4,6 +4,7 @@ import Layout from '@/layouts/base.astro';
 import CommonArticleBottomLayout from '@/components/common/article-bottom-layout.astro'
 import CommonArticleTopLayout from '@/components/common/article-top-layout.astro'
 import CommonTag from "@/components/common/tag.vue";
+import { formatDate } from "@/utils";
 
 // Create the static projects pages
 export async function getStaticPaths() {
@@ -17,17 +18,17 @@ export async function getStaticPaths() {
 // Get the requested project
 type Props = CollectionEntry<"projects">
 const project = Astro.props
-const { title, summary } = project.data
+const { title, date, summary } = project.data
 const { Content } = await project.render();
 
 const links = [
 	{
-		link: project.data.repoUrl,
+		link: project.data.demoUrl,
 		text: "See demo",
 		prefix: "preview"
 	},
 	{
-		link: project.data.demoUrl,
+		link: project.data.repoUrl,
 		text: "See repository",
 		prefix: "repository"
 	},
@@ -38,7 +39,8 @@ const links = [
 	<div class="pt-24">
 		<CommonArticleTopLayout entry={project} />
 		<div>
-			<h1 class="text-4xl mb-4 font-medium">{title}</h1>
+			<h1 class="text-4xl font-medium">{title}</h1>
+			<p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">{formatDate(date.toString())} {date.getDay()}</p>
 			<div class="flex flex-wrap gap-1 mt-1">
 				{project.data.tags.map((tag) => (
 					<CommonTag tag={tag} loading="eager" />
@@ -63,11 +65,9 @@ const links = [
 							</svg>
 						}
 						
-						{/* <span class="ml-1 font-bold" class:list={[link ? 'text-blue-700 dark:text-blue-500' : 'text-red-700 dark:text-red-500']}> */}
 						<span class="ml-1">
 							{link ? text : 'Not found'}
 						</span>
-						{/* <CommonTyping string={link ? text : 'Not found'} /> */}
 					</a>
 				)}
 			</div>

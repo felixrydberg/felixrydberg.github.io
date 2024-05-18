@@ -29,7 +29,6 @@ import { formatDate } from '@/utils/index';
             - {{ result.collection }}
           </span>
         </h1>
-        <p class="text-sm">{{ result.data.summary }}</p>
       </div>
       <div class="flex flex-wrap mt-2 gap-1 overflow-x-scroll">
         <common-tag

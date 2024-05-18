@@ -1,3 +1,7 @@
+.markdown-content {
+  padding-top: 24px;
+}
+
 .markdown-content * {
   @apply text-current;
 }
@@ -47,6 +51,10 @@
 
 .markdown-content ul {
   @apply list-disc pl-6 my-4;
+}
+
+.markdown-content a {
+  @apply underline;
 }
 
 
