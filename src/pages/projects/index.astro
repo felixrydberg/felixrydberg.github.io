@@ -3,7 +3,9 @@ import Layout from '@/layouts/base.astro';
 import Filter from '@/components/common/filter.vue';
 import { getCollection } from "astro:content"
 
-const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
+const projects = (await getCollection("projects"))
+  .filter((post: any) => post.data.published)
+  .sort((a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
 const tags: string[] = [... new Set([...projects.map((post: any) => post.data.tags).flat()])].sort();
 ---
 

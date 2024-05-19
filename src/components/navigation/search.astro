@@ -4,7 +4,8 @@ import Button from '@/components/ui/button.astro';
 import { getCollection } from "astro:content"
 
 const work = (await getCollection("work")).filter((post: any) => post.data.published);
-const projects = (await getCollection("projects")).filter((post: any) => post.data.published);
+const projects = (await getCollection("projects")).filter((post: any) => post.data.published)
+  .sort((a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 const entries = [...work, ...projects]
 ---
 <NavigationSearch client:only="vue" data={entries}>

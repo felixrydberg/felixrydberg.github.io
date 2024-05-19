@@ -5,7 +5,11 @@ import CommonContainer from '@/components/common/container.astro';
 import CommonProjectListItem from '@/components/common/project-list-item.vue';
 import { getCollection } from "astro:content"
 
-const projects = (await getCollection("projects")).filter((post: any) => post.data.published).slice(0, 3);
+const projects = (await getCollection("projects"))
+  .filter((post: any) => post.data.published)
+  .sort((a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
 // const timeline = [
 //   {
 //     title: 'Work',
