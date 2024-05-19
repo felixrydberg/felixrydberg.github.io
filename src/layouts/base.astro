@@ -2,6 +2,7 @@
 import CommonHead from '@/components/common/head.astro';
 import NavigationHeader from '@/components/navigation/header.astro';
 import Container from '@/components/common/container.astro';
+import Link from '@/components/ui/link.astro'
 
 interface Props {
 	title: string;
@@ -11,6 +12,22 @@ interface Props {
 }
 
 const { title, description, image, size = "lg" } = Astro.props;
+const { pathname } = Astro.url;
+const links = [
+  {
+    href: '/',
+    text: 'Home'
+  },
+  {
+    href: '/projects',
+    text: 'Projects'
+  },
+  {
+    href: '/work',
+    text: 'Work'
+  },
+];
+const subpath = pathname.match(/[^/]+/g)
 ---
 
 <!doctype html>
@@ -19,9 +36,32 @@ const { title, description, image, size = "lg" } = Astro.props;
 		<CommonHead title={title} description={description} image={image} />
 	</head>
 	<body class="min-h-screen h-full">
-		<NavigationHeader />
+		<NavigationHeader links={links} />
 		<Container size={size} tag="main" class="min-h-screen h-full">
 			<slot />
+			<div id="navigation-drawer" class="lg:hidden rounded-r-lg fixed p-4 top-0 left-0 z-20 w-64 h-full transition-all duration-300 transform -translate-x-full bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-900 shadow-lg">
+				<div class="flex flex-col justify-between h-full">
+					<ul>
+						<li class="mb-3"><h1 class="text-xl text-center">Felix Rydberg</h1></li>
+						{links.map((link) => 
+							<li>
+								<Link
+									class="text-neutral-700 text-center dark:text-neutral-300 my-2 text-lg tracking-wider" 
+									class:list={[pathname === link.href || `/${subpath?.[0]}` === link.href ? 'bg-neutral-200 dark:bg-neutral-800' : '']}
+									href={link.href}
+								>
+									{link.text}
+								</Link>
+							</li>
+						)}
+					</ul>
+					<ul>
+						<li><a class="content-email block bg-transparent hover:bg-neutral-200 dark:hover:bg-neutral-800 transition ease-in duration-100 px-3 my-1 mx-4 rounded-lg text-neutral-700 text-center dark:text-neutral-300 text-sm tracking-wider p-2"><noscript>JS is required to view email</noscript></a></li>
+						<li><a class="content-number block bg-transparent hover:bg-neutral-200 dark:hover:bg-neutral-800 transition ease-in duration-100 px-3 my-1 mx-4 rounded-lg text-neutral-700 text-center dark:text-neutral-300 text-sm tracking-wider p-2"><noscript>JS is required to view number</noscript></a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="search-model-container"></div>
 		</Container>
 		<footer class="border-t dark:border-neutral-800 h-64">
 			<Container size="lg" class="flex items-center justify-between h-full text-neutral-600 dark:text-neutral-400">
@@ -34,28 +74,34 @@ const { title, description, image, size = "lg" } = Astro.props;
 				<div>
 					<p class="text-lg">Contacts</p>
 					<ol class="pl-6 list-disc">
-						<li><a id="email"><noscript>JS is required to view email</noscript></a></li>
-						<li><a id="number"><noscript>JS is required to view number</noscript></a></li>
+						<li><a class="content-email"><noscript>JS is required to view email</noscript></a></li>
+						<li><a class="content-number"><noscript>JS is required to view number</noscript></a></li>
 						<li><a href="https://github.com/felixrydberg" target="_blank">Github</a></li>
 					</ol>
 				</div>
 			</Container>
 		</footer>
 		<script>
-			const emailNode = document.getElementById("email");
-			const numberNode = document.getElementById("number");
+			const emails = document.querySelectorAll(".content-email");
+			const numbers = document.querySelectorAll(".content-number");
 
 			const email = "ZmVsaXhyeWRAZ21haWwuY29t";
 			const number = "KzQ2NzkzMTM4MzA5";
 
-			if (emailNode) {
-				emailNode.setAttribute('href', `mailto:${atob(email)}`);
-				emailNode.textContent = atob(email);
-			}
-			if (numberNode) {
-				numberNode.setAttribute('href', `tel:${atob(number)}`);
-				numberNode.textContent = atob(number);
-			}
+			const nodes = [
+				...[...emails].map((node) => {
+					return { type: 'email', node}
+				}),
+				...[...numbers].map((node) => {
+					return { type: 'number', node}
+				})
+			];
+			nodes.forEach(({ type, node }) => {
+				const prefix = type === 'email' ? 'mailto:' : 'tel:';
+				const content = type === 'email' ? atob(email) : atob(number);
+				node.setAttribute('href', `${prefix}${content}`);
+				node.textContent = content;
+			})
 		</script>
 	</body>
 </html>

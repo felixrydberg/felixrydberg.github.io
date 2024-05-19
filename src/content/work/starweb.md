@@ -23,7 +23,7 @@ projects. This includes how to manage tasks with a kanban board, an understandin
 of github automated workflows, automated testing, code reviewing plus insight of
 the technology used to run a large platform.
 My assignments have consisted of Javascript solutions for our merchants and
-miscellaneous platform tasks.s
+miscellaneous platform tasks.
 - The Javascript solutions range from small behavioral changes to bigger scripts
 where we have to take full advantage of the platform provided features to
 reach functionality that the merchant requests.

@@ -4,25 +4,16 @@ import Link from '@/components/ui/link.astro'
 import CommonContainer from '@/components/common/container.astro'
 import NavigationSearch from '@/components/navigation/search.astro'
 
+interface Props {
+  links: { text: string, href: string }[]
+}
+
+const { links } = Astro.props;
 const { pathname } = Astro.url;
 const subpath = pathname.match(/[^/]+/g)
-const links = [
-  {
-    href: '/',
-    text: 'Home'
-  },
-  {
-    href: '/projects',
-    text: 'Projects'
-  },
-  {
-    href: '/work',
-    text: 'Work'
-  },
-]
 ---
 <header class="fixed h-16 inset-x-0 mx-auto bg-neutral-100 dark:bg-neutral-950/90 border border-neutral-200 dark:border-neutral-800 rounded-lg">
-  <CommonContainer size="sm" class="flex justify-end lg:justify-between relative">
+  <CommonContainer size="md" class="flex justify-end lg:justify-between relative">
     <div class="hidden lg:flex flex-1 flex-wrap justify-center content-center">
       {links.map((link) => 
         <Link
@@ -54,21 +45,6 @@ const links = [
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>               
       </Button>
-    </div>
-    <div id="navigation-drawer" class="lg:hidden rounded-r-lg fixed p-4 top-0 left-0 z-20 w-64 h-full transition-all duration-300 transform -translate-x-full bg-neutral-200 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg">
-      <h1 class="text-xl text-center">Felix Rydberg</h1>
-      <ul class="mt-4">
-        {links.map((link) => 
-          <li>
-            <Link
-              class="text-neutral-700 dark:text-neutral-300 text-lg tracking-wider" 
-              class:list={[pathname === link.href || `/${subpath?.[0]}` === link.href ? 'bg-neutral-200 dark:bg-neutral-800' : '']}
-              href={link.href}
-            >
-              {link.text}
-            </Link>
-          </li>
-        )}
     </div>
   </CommonContainer>
 </header>

@@ -7,7 +7,7 @@ import CommonTag from '@/components/common/tag.vue';
 
 const props = defineProps({
   data: {
-    type: Array as PropType<CollectionEntry[]>,
+    type: Array as PropType<CollectionEntry<"projects">[]>,
     required: true,
   },
   tags: {
