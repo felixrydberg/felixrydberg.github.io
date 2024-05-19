@@ -23,7 +23,3 @@ Some components of this project requires Reactivity. The Search Component (Ctrl 
 
 ## Styling
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling. The site supports both dark and light mode through Tailwinds dark: class operator.
-
-## Search
-- Running into styling issue where fixed elements overlap dialog
-- Preventing this by having slots for all elements so the dialog will always be at the bottom
