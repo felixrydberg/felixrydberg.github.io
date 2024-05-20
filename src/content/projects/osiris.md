@@ -2,7 +2,7 @@
 title: "Osiris"
 summary: ""
 description: ""
-date: "1970-01-01"
+date: "2023-09-06"
 tags:
 - "Cloudflare R2"
 - "Firebase"
@@ -14,6 +14,8 @@ tags:
 - "Vuetify 3"
 published: true
 demoUrl: ""
-repoUrl: ""
+repoUrl: "https://github.com/heimdall-group/osiris"
 ---
-TBA
+Osiris is a Instagram cloned built ontop of Nuxt with Wasabi S3 bucket. Images gets converted to webp while videos uses ffmpeg to encode to h264_nvenc. All these files gets uploaded to Wasabi.
+
+You are able to comment to posts, reply to comments and like all three (posts, comments, replies). You are able to follow other users aswell as manage your own followers or following

@@ -2,7 +2,7 @@
 title: "Frigg"
 summary: ""
 description: ""
-date: "1970-01-01"
+date: "2023-06-15"
 tags:
 - "Firebase"
 - "Github"
@@ -14,6 +14,6 @@ tags:
 - "Vuetify 3"
 published: true
 demoUrl: ""
-repoUrl: ""
+repoUrl: "https://github.com/heimdall-group/frigg"
 ---
-TBA
+This project was meant as a template for applications that would need subscription. It uses Stripe to handle invoices and product creation
