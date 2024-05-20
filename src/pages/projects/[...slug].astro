@@ -40,7 +40,7 @@ const links = [
 		<CommonArticleTopLayout entry={project} />
 		<div>
 			<h1 class="text-4xl font-medium">{title}</h1>
-			<p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">{formatDate(date.toString())} {date.getDay()}</p>
+			<p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">{formatDate(date.toString())} {date.getDate()}</p>
 			<div class="flex flex-wrap gap-1 mt-1">
 				{project.data.tags.map((tag) => (
 					<CommonTag tag={tag} loading="eager" />

@@ -42,11 +42,10 @@ const subpath = pathname.match(/[^/]+/g)
 			<div id="navigation-drawer" class="lg:hidden rounded-r-lg fixed p-4 top-0 left-0 z-20 w-64 h-full transition-all duration-300 transform -translate-x-full bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-900 shadow-lg">
 				<div class="flex flex-col justify-between h-full">
 					<ul>
-						<li class="mb-3"><h1 class="text-xl text-center">Felix Rydberg</h1></li>
 						{links.map((link) => 
-							<li>
+							<li class="border-b border-neutral-200 dark:border-neutral-800">
 								<Link
-									class="text-neutral-700 text-center dark:text-neutral-300 my-2 text-lg tracking-wider" 
+									class="text-neutral-700 text-center dark:text-neutral-300 my-6 text-lg tracking-wider" 
 									class:list={[pathname === link.href || `/${subpath?.[0]}` === link.href ? 'bg-neutral-200 dark:bg-neutral-800' : '']}
 									href={link.href}
 								>
